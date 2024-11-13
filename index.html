@@ -58,9 +58,17 @@
     button:hover {
       background-color: #4cae4c;
     }
-    .thank-you {
+    .thank-you, .loading-spinner {
       display: none;
       text-align: center;
+      color: #5cb85c;
+    }
+    /* Loading spinner styles */
+    .loading-spinner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
       color: #5cb85c;
     }
   </style>
@@ -130,7 +138,7 @@
     <!-- Section 4: Terms and Conditions -->
     <div class="section" id="terms-and-conditions">
       <h3>4. Terms and Conditions</h3>
-      <p>Please read the terms and conditions carefully.After submission wait till you get a confirmation message..</p>
+      <p>Please read the terms and conditions carefully.</p>
       <textarea rows="6" readonly>
       [Insert Terms and Conditions here...]
       </textarea>
@@ -145,6 +153,11 @@
       </div>
     </div>
   </form>
+
+  <!-- Loading Spinner -->
+  <div class="loading-spinner" id="loading-spinner">
+    <p>Submitting...</p>
+  </div>
 
   <!-- Thank You Message -->
   <div class="thank-you" id="thank-you">
@@ -187,6 +200,10 @@
       return;
     }
 
+    // Show loading spinner
+    document.getElementById('nirvana-form').style.display = 'none';
+    document.getElementById('loading-spinner').style.display = 'block';
+
     const form = document.getElementById('nirvana-form');
     const formData = new FormData(form);
 
@@ -205,10 +222,15 @@
     })
     .then(response => response.text())
     .then(responseText => {
-      document.getElementById('nirvana-form').style.display = 'none';
+      document.getElementById('loading-spinner').style.display = 'none';
       document.getElementById('thank-you').style.display = 'block';
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => {
+      console.error('Error:', error);
+      document.getElementById('loading-spinner').style.display = 'none';
+      alert("Submission failed. Please try again.");
+      document.getElementById('nirvana-form').style.display = 'block';
+    });
   }
 </script>
 
