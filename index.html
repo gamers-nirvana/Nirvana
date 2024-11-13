@@ -173,6 +173,7 @@
     const form = document.getElementById('nirvana-form');
     const formData = new FormData(form);
 
+    // Add file fields to formData
     const fileFields = ['pic', 'id-proof', 'signature'];
     for (const field of fileFields) {
       const fileInput = document.getElementById(field);
@@ -181,12 +182,16 @@
       }
     }
 
-    fetch('https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec', {
+    fetch('https://script.google.com/macros/s/AKfycbwXytKMiq33_0QQ3wLLEkBYyY_ochI_205S2jTwZiEfXn6RiN0-QsYKB2pQ9Bk3s7oM/exec', {
       method: 'POST',
       body: formData,
     })
     .then(response => response.text())
-    .then(responseText => alert(responseText))
+    .then(responseText => {
+      alert(responseText); // Shows the response message
+      form.reset(); // Optionally, reset the form on successful submission
+      nextSection('terms-and-conditions', 'front-page'); // Optionally, return to the first section
+    })
     .catch(error => console.error('Error:', error));
   }
 </script>
