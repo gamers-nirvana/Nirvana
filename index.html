@@ -58,6 +58,11 @@
     button:hover {
       background-color: #4cae4c;
     }
+    .thank-you {
+      display: none;
+      text-align: center;
+      color: #5cb85c;
+    }
   </style>
 </head>
 <body>
@@ -140,6 +145,12 @@
       </div>
     </div>
   </form>
+
+  <!-- Thank You Message -->
+  <div class="thank-you" id="thank-you">
+    <h3>Thank you for registering!</h3>
+    <p>Your form has been successfully submitted.</p>
+  </div>
 </div>
 
 <script>
@@ -170,6 +181,12 @@
 
   // Function to handle form submission with file uploads as base64
   async function handleFormSubmit() {
+    const agreeCheckbox = document.getElementById('agree');
+    if (!agreeCheckbox.checked) {
+      alert("Please agree to the Terms and Conditions before submitting.");
+      return;
+    }
+
     const form = document.getElementById('nirvana-form');
     const formData = new FormData(form);
 
@@ -188,9 +205,8 @@
     })
     .then(response => response.text())
     .then(responseText => {
-      alert(responseText); // Shows the response message
-      form.reset(); // Optionally, reset the form on successful submission
-      nextSection('terms-and-conditions', 'front-page'); // Optionally, return to the first section
+      document.getElementById('nirvana-form').style.display = 'none';
+      document.getElementById('thank-you').style.display = 'block';
     })
     .catch(error => console.error('Error:', error));
   }
