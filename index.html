@@ -58,12 +58,7 @@
     button:hover {
       background-color: #4cae4c;
     }
-    /* Loading Spinner and Message */
-    #loading-spinner {
-      display: none;
-      text-align: center;
-      margin-top: 20px;
-    }
+    /* Loading Message */
     #loading-message {
       display: none;
       text-align: center;
@@ -154,11 +149,6 @@
     </div>
   </form>
 
-  <!-- Loading Spinner -->
-  <div id="loading-spinner">
-    <img src="spinner.gif" alt="Loading..."> <!-- You can replace this with your preferred spinner GIF -->
-  </div>
-
   <!-- Loading Message -->
   <div id="loading-message">Submitting...</div>
 
@@ -191,8 +181,7 @@
       return;
     }
 
-    // Show the spinner and message after submit button is clicked
-    document.getElementById('loading-spinner').style.display = 'block';
+    // Show the submitting message after submit button is clicked
     document.getElementById('loading-message').style.display = 'block';
     document.getElementById('nirvana-form').style.display = 'none'; // Hide the form during submission
 
@@ -214,13 +203,12 @@
       const responseText = await response.text();
       alert(responseText); // Optionally display server response
 
-      // On success, show Thank You page (you can redirect to a new page or display a message here)
-      document.body.innerHTML = '<h1>Thank you for submitting!</h1>';
+      // After successful submission, change the message to "Thank you for Registering"
+      document.getElementById('loading-message').innerHTML = 'Thank you for Registering!';
     } catch (error) {
       console.error('Error:', error);
       alert('Submission failed. Please try again.');
       document.getElementById('nirvana-form').style.display = 'block';
-      document.getElementById('loading-spinner').style.display = 'none';
       document.getElementById('loading-message').style.display = 'none';
     }
   }
