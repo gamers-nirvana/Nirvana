@@ -200,7 +200,7 @@
       return;
     }
 
-    // Show loading spinner
+    // Show loading spinner immediately
     document.getElementById('nirvana-form').style.display = 'none';
     document.getElementById('loading-spinner').style.display = 'block';
 
@@ -224,12 +224,13 @@
     .then(responseText => {
       document.getElementById('loading-spinner').style.display = 'none';
       document.getElementById('thank-you').style.display = 'block';
+      form.reset();
     })
     .catch(error => {
       console.error('Error:', error);
-      document.getElementById('loading-spinner').style.display = 'none';
       alert("Submission failed. Please try again.");
       document.getElementById('nirvana-form').style.display = 'block';
+      document.getElementById('loading-spinner').style.display = 'none';
     });
   }
 </script>
