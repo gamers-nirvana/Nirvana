@@ -185,10 +185,16 @@
     const form = document.getElementById('nirvana-form');
     const formData = new FormData(form);
 
-    // Add spinner and message
+    // Ensure that checkbox is checked before proceeding
+    if (!document.getElementById('agree').checked) {
+      alert('You must agree to the terms and conditions.');
+      return;
+    }
+
+    // Show the spinner and message after submit button is clicked
     document.getElementById('loading-spinner').style.display = 'block';
     document.getElementById('loading-message').style.display = 'block';
-    document.getElementById('nirvana-form').style.display = 'none'; // Hide form during submission
+    document.getElementById('nirvana-form').style.display = 'none'; // Hide the form during submission
 
     try {
       const fileFields = ['pic', 'id-proof', 'signature'];
