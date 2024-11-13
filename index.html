@@ -202,7 +202,7 @@
 
     // Show loading spinner immediately
     document.getElementById('nirvana-form').style.display = 'none';
-    document.getElementById('loading-spinner').style.display = 'block';
+    document.getElementById('loading-spinner').style.display = 'flex'; // Show spinner
 
     const form = document.getElementById('nirvana-form');
     const formData = new FormData(form);
@@ -222,8 +222,8 @@
     })
     .then(response => response.text())
     .then(responseText => {
-      document.getElementById('loading-spinner').style.display = 'none';
-      document.getElementById('thank-you').style.display = 'block';
+      document.getElementById('loading-spinner').style.display = 'none'; // Hide spinner
+      document.getElementById('thank-you').style.display = 'block'; // Show thank you message
       form.reset();
     })
     .catch(error => {
