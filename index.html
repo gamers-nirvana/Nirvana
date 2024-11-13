@@ -65,8 +65,7 @@
 <div class="container">
   <h2>Nirvana Agreement</h2>
 
-  <form action="https://script.google.com/macros/s/AKfycbyIUVKVucKVbgBu05i2H6Fh-DrCqmR41MhSl0wIl0Ov37CqzKgIVCiKdxd2mciQG9Av/exec" method="POST" enctype="multipart/form-data" id="nirvana-form">
-    
+  <form id="nirvana-form">
     <!-- Section 1: Front Page -->
     <div class="section" id="front-page">
       <h3>1. Front Page - Contact Information</h3>
@@ -137,7 +136,7 @@
       </div>
       <div class="button-group">
         <button type="button" onclick="prevSection('terms-and-conditions', 'content-attachment')">Back</button>
-        <button type="submit" id="submit-btn">Submit</button>
+        <button type="button" onclick="handleFormSubmit()">Submit</button>
       </div>
     </div>
   </form>
@@ -159,18 +158,37 @@
     document.getElementById(prevSectionId).style.display = 'block';
   }
 
-  // Function to validate the form and ensure the user agrees to terms and conditions before submission
-  document.getElementById('nirvana-form').addEventListener('submit', function(event) {
-    const termsCheckbox = document.getElementById('agree');
-    
-    // If the checkbox is not checked, prevent form submission and alert the user
-    if (!termsCheckbox.checked) {
-      event.preventDefault();
-      alert('You must agree to the Terms and Conditions before submitting the form.');
-    } else {
-      alert('Thank you for registering. Stay tuned for results!');
+  // Function to convert file to base64
+  function getBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = error => reject(error);
+    });
+  }
+
+  // Function to handle form submission with file uploads as base64
+  async function handleFormSubmit() {
+    const form = document.getElementById('nirvana-form');
+    const formData = new FormData(form);
+
+    const fileFields = ['pic', 'id-proof', 'signature'];
+    for (const field of fileFields) {
+      const fileInput = document.getElementById(field);
+      if (fileInput.files.length > 0) {
+        formData.set(field, await getBase64(fileInput.files[0]));
+      }
     }
-  });
+
+    fetch('https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec', {
+      method: 'POST',
+      body: formData,
+    })
+    .then(response => response.text())
+    .then(responseText => alert(responseText))
+    .catch(error => console.error('Error:', error));
+  }
 </script>
 
 </body>
