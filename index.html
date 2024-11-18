@@ -78,15 +78,20 @@
     }
 
     .section {
-      display: none;
-      margin-bottom: 10px;
-      animation: slideIn 1s ease;
-      width: 100%;
-      flex-grow: 1;
-      padding: 20px;
-      height: calc(100vh - 150px);
-      overflow: auto;
-    }
+  display: none;
+  margin-bottom: 10px;
+  animation: slideIn 1s ease;
+  width: 100%;
+  max-height: calc(100vh - 180px); /* Prevent overflow beyond viewport */
+  overflow-y: auto; /* Enable scrolling if content exceeds available height */
+  padding: 20px;
+  box-sizing: border-box; /* Ensure padding doesn't affect layout dimensions */
+}
+
+.section.active {
+  display: block;
+}
+
 
     .section.active {
       display: block;
