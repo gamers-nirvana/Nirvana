@@ -249,82 +249,84 @@
 
   <script>
     function nextSection(current, next) {
-  // Validate required fields in the current section
-  if (!validateFields(current)) {
-    alert("Please fill in all required fields.");
-    return;  // Prevent switching to the next section if fields are not filled
-  }
-
-  // If validation passes, move to the next section
-  document.getElementById(current).classList.remove('active');
-  document.getElementById(next).classList.add('active');
-}
-
-function prevSection(current, prev) {
-  // Go to the previous section
-  document.getElementById(current).classList.remove('active');
-  document.getElementById(prev).classList.add('active');
-}
-
-// Validate all required fields in a given section
-function validateFields(sectionId) {
-  const section = document.getElementById(sectionId);
-  const requiredFields = section.querySelectorAll('[required]');
-
-  // Loop through all required fields and check if they are empty
-  for (let field of requiredFields) {
-    if (!field.value.trim()) {
-      field.classList.add('shake');  // Add shake animation for missing fields
-      setTimeout(() => field.classList.remove('shake'), 500);  // Remove shake after animation
-      return false;  // Return false if any required field is empty
-    }
-  }
-
-  return true;  // All required fields are filled
-}
-
-async function handleFormSubmit(event) {
-  event.preventDefault();
-  document.getElementById('nirvana-form').style.display = 'none';
-  document.getElementById('loading-message').style.display = 'block';
-
-  try {
-    const formData = new FormData(document.getElementById('nirvana-form'));
-
-    // Convert files to base64 before submitting to Apps Script
-    const fileInputs = document.querySelectorAll('input[type="file"]');
-    fileInputs.forEach((input) => {
-      const file = input.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(event) {
-          // Convert the file to base64 and append it to the formData
-          const base64 = event.target.result.split(',')[1]; // Skip the "data:image/png;base64," part
-          formData.append(input.name, base64);
-        };
-        reader.readAsDataURL(file);
+      // Validate required fields in the current section
+      if (!validateFields(current)) {
+        alert('Please fill all required fields.');
+        return;
       }
-    });
 
-    // Wait for the file conversion before sending the form data
-    const response = await fetch('https://script.google.com/macros/s/AKfycbwXytKMiq33_0QQ3wLLEkBYyY_ochI_205S2jTwZiEfXn6RiN0-QsYKB2pQ9Bk3s7oM/exec', {
-      method: 'POST',
-      body: formData,
-    });
+      document.getElementById(current).classList.remove('active');
+      document.getElementById(next).classList.add('active');
+    }
 
-    const responseText = await response.text();
-    alert(responseText);
+    function prevSection(current, prev) {
+      document.getElementById(current).classList.remove('active');
+      document.getElementById(prev).classList.add('active');
+    }
 
-    document.getElementById('loading-message').innerHTML = 'Thank you for Registering!';
-  } catch (error) {
-    alert('Submission failed. Please try again.');
-    document.getElementById('nirvana-form').style.display = 'block';
-    document.getElementById('loading-message').style.display = 'none';
-  }
-}
+    function validateFields(sectionId) {
+      const inputs = document.querySelectorAll(`#${sectionId} input[required], #${sectionId} textarea[required]`);
+      let isValid = true;
 
-document.getElementById('nirvana-form').addEventListener('submit', handleFormSubmit);
+      inputs.forEach(input => {
+        if (!input.value.trim()) {
+          input.classList.add('shake');
+          isValid = false;
+        } else {
+          input.classList.remove('shake');
+        }
+      });
 
+      return isValid;
+    }
+
+    async function handleFormSubmit(event) {
+      event.preventDefault();
+      document.getElementById('nirvana-form').style.display = 'none';
+      document.getElementById('loading-message').style.display = 'block';
+
+      try {
+        const formData = new FormData(document.getElementById('nirvana-form'));
+        const fileInputs = document.querySelectorAll('input[type="file"]');
+        
+        const filePromises = Array.from(fileInputs).map(input => {
+          const file = input.files[0];
+          if (file) {
+            return new Promise((resolve) => {
+              const reader = new FileReader();
+              reader.onload = function(event) {
+                const base64 = event.target.result.split(',')[1];
+                formData.append(input.name, base64);
+                resolve();
+              };
+              reader.readAsDataURL(file);
+            });
+          } else {
+            resolve();  // If no file is selected, resolve immediately
+          }
+        });
+
+        // Wait for all files to be processed
+        await Promise.all(filePromises);
+
+        const response = await fetch('https://script.google.com/macros/s/AKfycbwXytKMiq33_0QQ3wLLEkBYyY_ochI_205S2jTwZiEfXn6RiN0-QsYKB2pQ9Bk3s7oM/exec', {
+          method: 'POST',
+          body: formData,
+        });
+
+        const responseText = await response.text();
+        alert(responseText);
+
+        document.getElementById('loading-message').innerHTML = 'Thank you for Registering!';
+      } catch (error) {
+        alert('Submission failed. Please try again.');
+        document.getElementById('nirvana-form').style.display = 'block';
+        document.getElementById('loading-message').style.display = 'none';
+      }
+    }
+
+    document.getElementById('nirvana-form').addEventListener('submit', handleFormSubmit);
   </script>
+
 </body>
 </html>
