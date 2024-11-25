@@ -182,6 +182,68 @@
             background-color: #ff1a1a;
             transform: scale(1.1);
         }
+
+        /* Responsive Design */
+        @media only screen and (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                padding: 10px;
+            }
+
+            nav a {
+                margin: 10px 0;
+                font-size: 1.1em;
+                padding: 8px 15px;
+            }
+
+            h1 {
+                font-size: 3em;
+            }
+
+            .button {
+                padding: 12px 20px;
+                font-size: 1em;
+            }
+
+            section {
+                padding: 30px 10px;
+            }
+
+            .contact-form input, .contact-form textarea {
+                max-width: 100%;
+            }
+
+            .contact-form button {
+                max-width: 100%;
+            }
+        }
+
+        @media only screen and (max-width: 480px) {
+            h1 {
+                font-size: 2.5em;
+            }
+
+            .button {
+                padding: 10px 20px;
+            }
+
+            .contact-form input, .contact-form textarea {
+                padding: 8px;
+                font-size: 0.9em;
+            }
+
+            .contact-form button {
+                padding: 12px 25px;
+            }
+
+            #register h1 {
+                font-size: 2.5em;
+            }
+
+            #register p {
+                font-size: 1.2em;
+            }
+        }
     </style>
 </head>
 <body>
@@ -236,22 +298,23 @@
 
     <!-- Register Section -->
     <section id="register">
-        <h1>Become a Core Member of Team Nirvana</h1>
-        <p>Take your gaming to the next level and become a part of the elite squad. Join us and pursue gaming professionally!</p>
-        <a href="register.html" class="button">Join Us</a>
+        <h1>Become a Core Member</h1>
+        <p>Join Nirvana and be part of the most legendary gaming team.</p>
+        <div class="button">Register Now</div>
     </section>
 
-    <!-- JavaScript for Section Switching -->
     <script>
-        function showSection(sectionId) {
+        function showSection(id) {
+            // Hide all sections
             const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('nav a');
-
             sections.forEach(section => section.classList.remove('active-section'));
-            navLinks.forEach(link => link.classList.remove('active'));
 
-            document.getElementById(sectionId).classList.add('active-section');
-            document.querySelector(`nav a[onclick="showSection('${sectionId}')"]`).classList.add('active');
+            // Show the clicked section
+            const activeLink = document.querySelectorAll('nav a');
+            activeLink.forEach(link => link.classList.remove('active'));
+
+            document.getElementById(id).classList.add('active-section');
+            event.target.classList.add('active');
         }
     </script>
 </body>
