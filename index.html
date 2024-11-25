@@ -33,7 +33,10 @@
             transition: transform 0.3s ease-in-out;
         }
 
-        /* Hamburger Menu */
+        nav.active {
+            transform: translateX(0); /* Show the menu when active */
+        }
+
         .hamburger {
             position: fixed;
             top: 20px;
@@ -154,7 +157,14 @@
     </style>
 </head>
 <body>
-    <!-- Navigation -->
+    <!-- Hamburger Icon -->
+    <div class="hamburger" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <!-- Navigation Menu -->
     <nav>
         <div class="menu">
             <a href="#" onclick="showSection('home')">Home</a>
@@ -165,13 +175,6 @@
             <a href="#" onclick="showSection('register')">Register</a>
         </div>
     </nav>
-
-    <!-- Hamburger Icon -->
-    <div class="hamburger" onclick="toggleMenu()">
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
 
     <!-- Sections -->
     <section id="home" class="active-section">
