@@ -252,7 +252,8 @@
 
     <!-- Sections -->
     <section id="home" class="active-section">
-        <h1>NIRVANA</h1>
+        <h1>Home</h1>
+        <p>NIRVANA</p>
         <p>Where Legends Are Born</p>
         <div class="button" onclick="showSection('contact')">Contact Us</div>
     </section>
@@ -307,7 +308,7 @@
             links.forEach(link => link.classList.remove('active'));
 
             document.getElementById(sectionId).classList.add('active-section');
-            document.querySelector(.menu a[onclick="showSection('${sectionId}')"]).classList.add('active');
+            document.querySelector(`.menu a[onclick="showSection('${sectionId}')"]`).classList.add('active');
             updateSectionTitle(sectionId);
             closeMenu();
         }
@@ -323,11 +324,11 @@
         function updateSectionTitle(sectionId) {
             const sectionTitles = {
                 home: 'Home',
-                about: 'About',
-                team: 'Team',
-                achievements: 'Achievements',
-                contact: 'Contact',
-                register: 'Register'
+                about: 'About Us',
+                team: 'Meet The Team',
+                achievements: 'Our Achievements',
+                contact: 'Contact Us',
+                register: 'Become a Core Member of Team Nirvana'
             };
 
             document.getElementById('sectionTitle').innerText = sectionTitles[sectionId];
