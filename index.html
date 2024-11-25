@@ -224,29 +224,29 @@
 
     <!-- Sections -->
     <section id="home" class="active-section">
-        <h1>NIRVANA</h1>
+        <h1 id="section-heading">NIRVANA</h1>
         <p>Where Legends Are Born</p>
         <div class="button" onclick="showSection('contact')">Contact Us</div>
     </section>
 
     <section id="about">
-        <h1>About Us</h1>
+        <h1 id="section-heading">About Us</h1>
         <p>We are Nirvana, a leading gaming team committed to excellence in Gaming.</p>
     </section>
 
     <section id="team">
-        <h1>Meet The Team</h1>
+        <h1 id="section-heading">Meet The Team</h1>
         <p>Our core members are highly skilled and passionate about gaming.</p>
     </section>
 
     <section id="achievements">
-        <h1>Our Achievements</h1>
+        <h1 id="section-heading">Our Achievements</h1>
         <p>We've won several tournaments and built a strong community.</p>
     </section>
 
     <!-- Contact Section with Form -->
     <section id="contact">
-        <h1>Contact Us</h1>
+        <h1 id="section-heading">Contact Us</h1>
         <p>Reach out to become part of the Nirvana legacy.</p>
         <form action="#" method="POST" class="contact-form">
             <label for="name">Full Name</label>
@@ -263,7 +263,7 @@
     </section>
 
     <section id="register">
-        <h1>Become a Core Member of Team Nirvana</h1>
+        <h1 id="section-heading">Become a Core Member of Team Nirvana</h1>
         <p>Join our elite gaming team and take your skills to the next level.</p>
         <a href="register.html" class="button">Join Us</a>
     </section>
@@ -278,16 +278,15 @@
             links.forEach(link => link.classList.remove('active'));
 
             document.getElementById(sectionId).classList.add('active-section');
-            document.querySelector(`.menu a[onclick="showSection('${sectionId}')"]`).classList.add('active');
-            closeMenu();
+            document.querySelector(`.menu a[href="#"]`).classList.add('active');
+
+            // Change the heading dynamically
+            const heading = document.getElementById('section-heading');
+            heading.textContent = sectionId.charAt(0).toUpperCase() + sectionId.slice(1);
         }
 
         function toggleMenu() {
             document.querySelector('nav').classList.toggle('active');
-        }
-
-        function closeMenu() {
-            document.querySelector('nav').classList.remove('active');
         }
     </script>
 </body>
