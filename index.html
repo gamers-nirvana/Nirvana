@@ -115,6 +115,17 @@
             transform: scale(1.1);
         }
 
+        /* Section Title Next to Hamburger */
+        .section-title {
+            position: fixed;
+            top: 20px;
+            left: 70px;
+            color: white;
+            font-size: 2em;
+            font-weight: bold;
+            transition: opacity 0.3s ease;
+        }
+
         /* Keyframe Animations */
         @keyframes fadeIn {
             0% { opacity: 0; transform: translateY(-20px); }
@@ -152,6 +163,11 @@
             .button {
                 padding: 12px 20px;
                 font-size: 1em;
+            }
+
+            .section-title {
+                font-size: 1.5em;
+                left: 50px;
             }
         }
 
@@ -219,6 +235,9 @@
         <div></div>
     </div>
 
+    <!-- Section Title (Dynamic) -->
+    <div class="section-title" id="sectionTitle">Home</div>
+
     <!-- Navigation Menu -->
     <nav>
         <div class="menu">
@@ -233,30 +252,30 @@
 
     <!-- Sections -->
     <section id="home" class="active-section">
-        <h1>Home</h1> <!-- Home Heading -->
+        <h1>Home</h1>
         <p>NIRVANA</p>
         <p>Where Legends Are Born</p>
         <div class="button" onclick="showSection('contact')">Contact Us</div>
     </section>
 
     <section id="about">
-        <h1>About Us</h1> <!-- About Us Heading -->
+        <h1>About Us</h1>
         <p>We are Nirvana, a leading gaming team committed to excellence in Gaming.</p>
     </section>
 
     <section id="team">
-        <h1>Meet The Team</h1> <!-- Meet The Team Heading -->
+        <h1>Meet The Team</h1>
         <p>Our core members are highly skilled and passionate about gaming.</p>
     </section>
 
     <section id="achievements">
-        <h1>Our Achievements</h1> <!-- Achievements Heading -->
+        <h1>Our Achievements</h1>
         <p>We've won several tournaments and built a strong community.</p>
     </section>
 
     <!-- Contact Section with Form -->
     <section id="contact">
-        <h1>Contact Us</h1> <!-- Contact Us Heading -->
+        <h1>Contact Us</h1>
         <p>Reach out to become part of the Nirvana legacy.</p>
         <form action="#" method="POST" class="contact-form">
             <label for="name">Full Name</label>
@@ -272,13 +291,14 @@
         </form>
     </section>
 
+    <!-- Register Section -->
     <section id="register">
-        <h1>Become a Core Member of Team Nirvana</h1> <!-- Register Heading -->
-        <p>Join our elite gaming team and take your skills to the next level.</p>
-        <a href="register.html" class="button">Join Us</a>
+        <h1>Become a Core Member of Team Nirvana</h1>
+        <p>Join us today to start your journey!</p>
+        <div class="button" onclick="showSection('contact')">Contact Us</div>
     </section>
 
-    <!-- JavaScript for Section Switching and Menu Toggle -->
+    <!-- JavaScript -->
     <script>
         function showSection(sectionId) {
             const sections = document.querySelectorAll('section');
@@ -289,6 +309,7 @@
 
             document.getElementById(sectionId).classList.add('active-section');
             document.querySelector(`.menu a[onclick="showSection('${sectionId}')"]`).classList.add('active');
+            updateSectionTitle(sectionId);
             closeMenu();
         }
 
@@ -298,6 +319,19 @@
 
         function closeMenu() {
             document.querySelector('nav').classList.remove('active');
+        }
+
+        function updateSectionTitle(sectionId) {
+            const sectionTitles = {
+                home: 'Home',
+                about: 'About Us',
+                team: 'Meet The Team',
+                achievements: 'Our Achievements',
+                contact: 'Contact Us',
+                register: 'Become a Core Member of Team Nirvana'
+            };
+
+            document.getElementById('sectionTitle').innerText = sectionTitles[sectionId];
         }
     </script>
 </body>
