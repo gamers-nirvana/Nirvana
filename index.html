@@ -25,8 +25,10 @@
             text-align: center;
             z-index: 10;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
+            align-items: center;
         }
+
         nav a {
             color: #ff4d4d;
             text-decoration: none;
@@ -36,9 +38,49 @@
             border-radius: 10px;
             transition: background-color 0.3s, color 0.3s;
         }
+
         nav a:hover, nav a.active {
             background-color: #ff4d4d;
             color: white;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 20;
+        }
+
+        .hamburger div {
+            width: 30px;
+            height: 5px;
+            background-color: white;
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+
+        .menu {
+            display: flex;
+            justify-content: center;
+        }
+
+        .menu.active {
+            display: block;
+            flex-direction: column;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            position: absolute;
+            top: 50px;
+            left: 0;
+            z-index: 10;
+            padding: 10px 0;
+        }
+
+        .menu a {
+            margin: 15px 0;
+            font-size: 1.5em;
+            padding: 10px 0;
         }
 
         /* Section Styles */
@@ -54,6 +96,7 @@
             transition: opacity 0.8s ease, transform 0.8s ease;
             overflow: hidden;
         }
+
         .active-section {
             display: flex;
             opacity: 1;
@@ -77,6 +120,7 @@
             cursor: pointer;
             transition: background-color 0.3s, transform 0.3s;
         }
+
         .button:hover {
             background-color: #ff1a1a;
             transform: scale(1.1);
@@ -143,57 +187,42 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* Styling for Register section */
-        #register {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;  /* Ensure it fills the screen */
-            padding: 50px 20px;
-            background-color: #1a1a1a;
-            color: white;
-            text-align: center;  /* Center the text */
-        }
-
-        #register h1 {
-            font-size: 3em;
-            margin-bottom: 20px;
-            animation: fadeIn 1s ease;
-        }
-
-        #register p {
-            font-size: 1.5em;
-            margin-bottom: 30px;
-        }
-
-        #register .button {
-            padding: 15px 30px;
-            background-color: #ff4d4d;
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            font-size: 1.2em;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-
-        #register .button:hover {
-            background-color: #ff1a1a;
-            transform: scale(1.1);
-        }
-
         /* Responsive Design */
         @media only screen and (max-width: 768px) {
             nav {
-                flex-direction: column;
+                display: flex;
+                justify-content: space-between;
                 padding: 10px;
             }
 
             nav a {
-                margin: 10px 0;
-                font-size: 1.1em;
-                padding: 8px 15px;
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .menu {
+                display: none;
+            }
+
+            .menu.active {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                position: absolute;
+                top: 50px;
+                left: 0;
+                z-index: 10;
+                padding: 10px 0;
+            }
+
+            .menu a {
+                margin: 15px 0;
+                font-size: 1.5em;
+                padding: 10px 0;
             }
 
             h1 {
@@ -207,14 +236,6 @@
 
             section {
                 padding: 30px 10px;
-            }
-
-            .contact-form input, .contact-form textarea {
-                max-width: 100%;
-            }
-
-            .contact-form button {
-                max-width: 100%;
             }
         }
 
@@ -249,12 +270,19 @@
 <body>
     <!-- Navigation -->
     <nav>
-        <a onclick="showSection('home')" class="active">Home</a>
-        <a onclick="showSection('about')">About</a>
-        <a onclick="showSection('team')">Team</a>
-        <a onclick="showSection('achievements')">Achievements</a>
-        <a onclick="showSection('contact')">Contact</a>
-        <a onclick="showSection('register')">Register</a>
+        <div class="hamburger" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="menu">
+            <a onclick="showSection('home')" class="active">Home</a>
+            <a onclick="showSection('about')">About</a>
+            <a onclick="showSection('team')">Team</a>
+            <a onclick="showSection('achievements')">Achievements</a>
+            <a onclick="showSection('contact')">Contact</a>
+            <a onclick="showSection('register')">Register</a>
+        </div>
     </nav>
 
     <!-- Sections -->
@@ -298,23 +326,26 @@
 
     <!-- Register Section -->
     <section id="register">
-        <h1>Become a Core Member</h1>
-        <p>Join Nirvana and be part of the most legendary gaming team.</p>
-        <div class="button">Register Now</div>
+        <h1>Become a Core Member of Team Nirvana</h1>
+        <p>Take your gaming to the next level and become a part of the elite squad. Join us and pursue gaming professionally!</p>
+        <a href="register.html" class="button">Join Us</a>
     </section>
 
+    <!-- JavaScript for Section Switching and Menu Toggle -->
     <script>
-        function showSection(id) {
-            // Hide all sections
+        function showSection(sectionId) {
             const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('nav a');
+
             sections.forEach(section => section.classList.remove('active-section'));
+            navLinks.forEach(link => link.classList.remove('active'));
 
-            // Show the clicked section
-            const activeLink = document.querySelectorAll('nav a');
-            activeLink.forEach(link => link.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active-section');
+            document.querySelector(`nav a[onclick="showSection('${sectionId}')"]`).classList.add('active');
+        }
 
-            document.getElementById(id).classList.add('active-section');
-            event.target.classList.add('active');
+        function toggleMenu() {
+            document.querySelector('.menu').classList.toggle('active');
         }
     </script>
 </body>
