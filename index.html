@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Nirvana</title>
+    <style>
+        /* Global Styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+            background-color: #0b0b0b;
+            color: white;
+            text-align: center;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            text-align: center;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+        }
+        nav a {
+            color: #ff4d4d;
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 1.2em;
+            padding: 10px 20px;
+            border-radius: 10px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        nav a:hover, nav a.active {
+            background-color: #ff4d4d;
+            color: white;
+        }
+
+        /* Section Styles */
+        section {
+            height: 100vh;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px;
+            flex-direction: column;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            overflow: hidden;
+        }
+        .active-section {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h1 {
+            font-size: 5em;
+            letter-spacing: 5px;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .button {
+            margin-top: 20px;
+            padding: 15px 30px;
+            background-color: #ff4d4d;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .button:hover {
+            background-color: #ff1a1a;
+            transform: scale(1.1);
+        }
+
+        /* Form Styles */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #222;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        .contact-form label {
+            color: white;
+            font-size: 1.1em;
+            margin: 10px 0;
+        }
+
+        .contact-form input, .contact-form textarea {
+            padding: 10px;
+            width: 100%;
+            max-width: 400px;
+            margin: 5px 0 15px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+            font-size: 1em;
+        }
+
+        .contact-form input:focus, .contact-form textarea:focus {
+            outline: none;
+            border: 2px solid #ff4d4d;
+        }
+
+        .contact-form button {
+            margin-top: 15px;
+            padding: 15px 30px;
+            background-color: #ff4d4d;
+            color: white;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 10px;
+            border: none;
+            transition: background-color 0.3s, transform 0.3s;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .contact-form button:hover {
+            background-color: #ff1a1a;
+            transform: scale(1.1);
+        }
+
+        /* Keyframe Animations */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Styling for Register section */
+        #register {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;  /* Ensure it fills the screen */
+            padding: 50px 20px;
+            background-color: #1a1a1a;
+            color: white;
+            text-align: center;  /* Center the text */
+        }
+
+        #register h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease;
+        }
+
+        #register p {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+        }
+
+        #register .button {
+            padding: 15px 30px;
+            background-color: #ff4d4d;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        #register .button:hover {
+            background-color: #ff1a1a;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a onclick="showSection('home')" class="active">Home</a>
+        <a onclick="showSection('about')">About</a>
+        <a onclick="showSection('team')">Team</a>
+        <a onclick="showSection('achievements')">Achievements</a>
+        <a onclick="showSection('contact')">Contact</a>
+        <a onclick="showSection('register')">Register</a>
+    </nav>
+
+    <!-- Sections -->
+    <section id="home" class="active-section">
+        <h1>NIRVANA</h1>
+        <p>Where Legends Are Born</p>
+        <div class="button" onclick="showSection('contact')">Contact Us</div>
+    </section>
+
+    <section id="about">
+        <h1>About Us</h1>
+        <p>We are Nirvana, a leading gaming team committed to excellence in Gaming.</p>
+    </section>
+
+    <section id="team">
+        <h1>Our Team</h1>
+        <p>Meet our elite players, each a master in their domain, ready to conquer new challenges.</p>
+    </section>
+
+    <section id="achievements">
+        <h1>Achievements</h1>
+    </section>
+
+    <!-- Contact Section with Form -->
+    <section id="contact">
+        <h1>Contact Us</h1>
+        <p>Reach out to become part of the Nirvana legacy.</p>
+        <form action="#" method="POST" class="contact-form">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" placeholder="Your Name" required>
+
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="Your Email" required>
+
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Your Message" rows="4" required></textarea>
+
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+
+    <!-- Register Section -->
+    <section id="register">
+        <h1>Become a Core Member of Team Nirvana</h1>
+        <p>Take your gaming to the next level and become a part of the elite squad. Join us and pursue gaming professionally!</p>
+        <a href="register.html" class="button">Join Us</a>
+    </section>
+
+    <!-- JavaScript for Section Switching -->
+    <script>
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('nav a');
+
+            sections.forEach(section => section.classList.remove('active-section'));
+            navLinks.forEach(link => link.classList.remove('active'));
+
+            document.getElementById(sectionId).classList.add('active-section');
+            document.querySelector(`nav a[onclick="showSection('${sectionId}')"]`).classList.add('active');
+        }
+    </script>
+</body>
+</html>
