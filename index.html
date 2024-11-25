@@ -27,6 +27,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-sizing: border-box;
         }
 
         nav a {
@@ -70,7 +71,7 @@
             flex-direction: column;
             width: 100%;
             background: rgba(0, 0, 0, 0.8);
-            position: absolute;
+            position: fixed;
             top: 50px;
             left: 0;
             z-index: 10;
@@ -212,7 +213,7 @@
                 flex-direction: column;
                 width: 100%;
                 background: rgba(0, 0, 0, 0.8);
-                position: absolute;
+                position: fixed;
                 top: 50px;
                 left: 0;
                 z-index: 10;
@@ -309,8 +310,7 @@
     <!-- Contact Section with Form -->
     <section id="contact">
         <h1>Contact Us</h1>
-        <p>Reach out to become part of the Nirvana legacy.</p>
-        <form action="#" method="POST" class="contact-form">
+        <form class="contact-form">
             <label for="name">Full Name</label>
             <input type="text" id="name" name="name" placeholder="Your Name" required>
 
