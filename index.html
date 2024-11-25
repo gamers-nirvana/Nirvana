@@ -154,6 +154,61 @@
                 font-size: 1em;
             }
         }
+
+        /* Contact Form Styles */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #222;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        .contact-form label {
+            color: white;
+            font-size: 1.1em;
+            margin: 10px 0;
+        }
+
+        .contact-form input, .contact-form textarea {
+            padding: 10px;
+            width: 100%;
+            max-width: 400px;
+            margin: 5px 0 15px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+            font-size: 1em;
+        }
+
+        .contact-form input:focus, .contact-form textarea:focus {
+            outline: none;
+            border: 2px solid #ff4d4d;
+        }
+
+        .contact-form button {
+            margin-top: 15px;
+            padding: 15px 30px;
+            background-color: #ff4d4d;
+            color: white;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 10px;
+            border: none;
+            transition: background-color 0.3s, transform 0.3s;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .contact-form button:hover {
+            background-color: #ff1a1a;
+            transform: scale(1.1);
+        }
     </style>
 </head>
 <body>
@@ -198,15 +253,20 @@
         <p>We've won several tournaments and built a strong community.</p>
     </section>
 
+    <!-- Contact Section with Form -->
     <section id="contact">
         <h1>Contact Us</h1>
-        <form>
+        <p>Reach out to become part of the Nirvana legacy.</p>
+        <form action="#" method="POST" class="contact-form">
             <label for="name">Full Name</label>
-            <input type="text" id="name" name="name" placeholder="Your Name">
+            <input type="text" id="name" name="name" placeholder="Your Name" required>
+
             <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" placeholder="Your Email">
+            <input type="email" id="email" name="email" placeholder="Your Email" required>
+
             <label for="message">Message</label>
-            <textarea id="message" name="message" placeholder="Your Message"></textarea>
+            <textarea id="message" name="message" placeholder="Your Message" rows="4" required></textarea>
+
             <button type="submit">Submit</button>
         </form>
     </section>
