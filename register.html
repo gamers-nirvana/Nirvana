@@ -334,7 +334,7 @@ muted.
 
   <script>
 
-     let countdownTime = 120;
+   let countdownTime = 120;
     let countdownInterval;
 
     function startCountdown() {
@@ -348,14 +348,19 @@ muted.
       }, 1000);
     }
 
-    function handleSubmitBeforeTime() {
+    function submitForm() {
       const timeLeft = countdownTime;
+
+      // Check if time is remaining when the submit button is clicked
       if (timeLeft > 0) {
         alert(`You can't read all those Terms and Conditions within 120 seconds. You can submit after reading in ${timeLeft} seconds.`);
-        return false;
+        return false; // Prevent form submission
       }
-      return true;
+
+      // Proceed with form submission if time is 0
+      document.getElementById('nirvana-form').submit();
     }
+
     
     function nextSection(current, next) {
       // Validate required fields in the current section
