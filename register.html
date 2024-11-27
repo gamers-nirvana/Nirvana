@@ -327,10 +327,36 @@ muted.
 
     </form>
 
+    <div id="timer">Time Remaining: <span id="time-left">120</span> seconds</div>
+
     <div id="loading-message">Submitting your data...</div>
   </div>
 
   <script>
+
+     let countdownTime = 120;
+    let countdownInterval;
+
+    function startCountdown() {
+      countdownInterval = setInterval(() => {
+        if (countdownTime > 0) {
+          countdownTime--;
+          document.getElementById('time-left').textContent = countdownTime;
+        } else {
+          clearInterval(countdownInterval);
+        }
+      }, 1000);
+    }
+
+    function handleSubmitBeforeTime() {
+      const timeLeft = countdownTime;
+      if (timeLeft > 0) {
+        alert(`You can't read all those Terms and Conditions within 120 seconds. You can submit after reading in ${timeLeft} seconds.`);
+        return false;
+      }
+      return true;
+    }
+    
     function nextSection(current, next) {
       // Validate required fields in the current section
       if (!validateFields(current)) {
