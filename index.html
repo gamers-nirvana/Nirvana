@@ -14,20 +14,11 @@
     color: white;
     overflow-x: hidden;
     position: relative;  /* Needed for correct layering */
-}
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                url('Background.jpg') center/cover no-repeat;
+    background-blend-mode: darken;  /* Applies blending to dim the image */
 
-body::before {
-    content: "";
-    background: url('Background.jpg') center/cover no-repeat;
-    position: fixed;  /* Ensures full coverage even when scrolling */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.4;  /* Adjust opacity for dim effect */
-    z-index: -1;  /* Keeps it behind the content */
 }
-
 
         /* Navigation Styles */
         nav {
