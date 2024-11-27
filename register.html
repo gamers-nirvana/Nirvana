@@ -327,39 +327,10 @@ muted.
 
     </form>
 
-    <div id="timer">Time Remaining: <span id="time-left">120</span> seconds</div>
-
     <div id="loading-message">Submitting your data...</div>
   </div>
 
   <script>
-
-
-    let countdownTime = 120;
-    let countdownInterval;
-
-    // Start countdown when navigating to the terms and conditions section
-    function startCountdown() {
-      countdownInterval = setInterval(() => {
-        if (countdownTime > 0) {
-          countdownTime--;
-          document.getElementById('time-left').textContent = countdownTime;
-        } else {
-          clearInterval(countdownInterval);
-        }
-      }, 1000);
-    }
-
-    // Handle the submit logic
-    function handleSubmit() {
-      if (countdownTime > 0) {
-        alert(`You can't read all those Terms and Conditions within 120 seconds. You can submit after reading in ${countdownTime} seconds.`);
-      } else {
-        // Proceed with form submission if time is up
-        document.getElementById('nirvana-form').submit();
-      }
-    }
-    
     function nextSection(current, next) {
       // Validate required fields in the current section
       if (!validateFields(current)) {
@@ -374,12 +345,10 @@ muted.
     function prevSection(current, prev) {
       document.getElementById(current).classList.remove('active');
       document.getElementById(prev).classList.add('active');
-      if (next === 'terms-and-conditions' && countdownTime === 120) {
-        startCountdown();
     }
 
     function validateFields(sectionId) {
-      const inputs = document.querySelectorAll(`#${sectionId} input[required], #${sectionId} textarea[required]`);
+      const inputs = document.querySelectorAll(#${sectionId} input[required], #${sectionId} textarea[required]);
       let isValid = true;
 
       inputs.forEach(input => {
